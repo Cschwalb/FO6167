@@ -42,6 +42,19 @@ class typingGame:
         return sOutput
 
 
+class matheleticsBot:
+
+    def __init__(self, args1="2x4 + 21"):
+        self.args1 = args1
+
+    def orderOfOperations(self):
+        sOutput = self
+        sOutput = sOutput.replace('x', '*')
+        sOutput = sOutput.replace(' ', '')
+        sOutput = sOutput.replace('"', '')
+        dOutput = eval(sOutput)
+        return dOutput
+
 class readBackwards:
     def __init__(self, args1="racecar"):
         self.args1 = args1
@@ -79,3 +92,4 @@ object = getWolf()
 
 object=typingGame()
 print(object.sanitize())
+print(matheleticsBot.orderOfOperations("2x2 + 23"))

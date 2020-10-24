@@ -1,0 +1,3 @@
+# FO6167
+first bot for wolf.live
+There are stored numbers in here for tests and also to verify that things are working...

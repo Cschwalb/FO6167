@@ -32,6 +32,9 @@ class typingGame:
         self.args1 = args1
 
 
+    def invoke(self):
+        return print("!print")
+
     def sanitize(self):
         sOutput = self.args1
         sOutput = sOutput.replace('<', '')
@@ -55,6 +58,26 @@ class matheleticsBot:
         dOutput = eval(sOutput)
         return dOutput
 
+    def invoke(self):
+        return print("!math")
+
+
+class countDownBot:
+
+    def check_sums(array, k): #TODO REDO THIS FUNCTION
+        potential_solutions = set()
+        for num in array:
+            if num in potential_solutions:
+                return True
+            potential_solutions.add(k - num)
+        return False
+
+
+    def __init__(self, args1=[2, 9, 25, 10, 3], args2=309):
+        self.args1 = args1
+        self.args2 = args2
+
+
 class readBackwards:
     def __init__(self, args1="racecar"):
         self.args1 = args1
@@ -62,9 +85,6 @@ class readBackwards:
     def readStringBackwards(self, backWord):
         '''backWord is now reversed'''
         return backWord[::-1]
-
-    def curlWebsiteWithCookies(self):
-        return None
 
     def sanitizeString(self, frontWord):
         frontWord = frontWord.replace('|', '')
@@ -85,11 +105,18 @@ if __name__ == "__main__":
     print("[+] Running wordSwitch")
 
 # adding
+'''games to run'''
+
+#ReadBackwards
 object = readBackwards()  # initialize with regular arguments racecar
-
 print(object.runRead())
-object = getWolf()
 
+#getWolf connection help
+object = getWolf()
+#typing game
 object=typingGame()
 print(object.sanitize())
+#math game
 print(matheleticsBot.orderOfOperations("2x2 + 23"))
+#wcd
+object = countDownBot()

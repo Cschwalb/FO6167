@@ -1,30 +1,39 @@
 # This is a sample Python script.
-import scrapy
+from scrapy import Request
 from scrapy.http.response import Response
+from scrapy.spiders import Spider
+from scrapy.http import FormRequest
+import lxml.etree
+import lxml.html
+
 
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-class getWolf:
+class getWolf(Spider):
+    name = "wolf-bot"
+
+    def start_request(self):
+        return [FormRequest(self.args1,
+                                   formdata={'user':'hondaaussie@hotmail.com', 'pass':'rukidding'}, callback=log_parse)]
+
     def __init__(self, sNewWebsite="https://wolf.live/my+gams"):
         self.args1 = sNewWebsite
-
-
         if __name__ == '__main__':
             print("[+] Running getWolf")
-            response = self.getWebsiteRequest(sNewWebsite)
+            response = self.start_request()
             print(response)
 
     def log_parse(self, response):
         print("test1")
-        self.logger.info("Visited %s", response.url)
         print("[+] Logged visit to %s" % self.args1)
 
 
     def getWebsiteRequest(self, response):
         print("[+] argument type %s" % self.args1)
-        response = scrapy.Request(self.args1, callback=self.log_parse)
-        return response
+        response = lxml.html.fromstring(self.start_request())
+        lxml.etree.strip_elements(response, lxml.etree.Comment, "script", "head")
+        return lxml.html.tostring(response, method="text", encoding=unicode)
 
 
 class typingGame:
@@ -111,8 +120,10 @@ if __name__ == "__main__":
 object = readBackwards()  # initialize with regular arguments racecar
 print(object.runRead())
 
-#getWolf connection help
-object = getWolf()
+#getWolf connection helpa
+sp=Spider
+print(sp.name)
+object=getWolf(Spider)
 #typing game
 object=typingGame()
 print(object.sanitize())

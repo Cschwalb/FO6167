@@ -1,6 +1,7 @@
 # This is a sample Python script.
 import scrapy
-import os
+from scrapy.http.response import Response
+
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
@@ -8,25 +9,42 @@ class getWolf:
     def __init__(self, sNewWebsite="https://wolf.live/my+gams"):
         self.args1 = sNewWebsite
 
+
         if __name__ == '__main__':
-            print("Here argument %s " % self.args1)
-            rReq = self.getWebsiteRequest()
-            print("request is %s" % rReq.body)
+            print("[+] Running getWolf")
+            response = self.getWebsiteRequest(sNewWebsite)
+            print(response)
 
     def log_parse(self, response):
+        print("test1")
         self.logger.info("Visited %s", response.url)
-
-    def getWebsiteRequest(self):
-        return scrapy.Request(self.args1, callback=self.log_parse)
+        print("[+] Logged visit to %s" % self.args1)
 
 
+    def getWebsiteRequest(self, response):
+        print("[+] argument type %s" % self.args1)
+        response = scrapy.Request(self.args1, callback=self.log_parse)
+        return response
+
+
+class typingGame:
+    def __init__(self, args1="<--| trashcan | -->"):
+        self.args1 = args1
+
+
+    def sanitize(self):
+        sOutput = self.args1
+        sOutput = sOutput.replace('<', '')
+        sOutput = sOutput.replace('-', '')
+        sOutput = sOutput.replace('|', '')
+        sOutput = sOutput.replace(' ', '')
+        sOutput = sOutput.replace('>', '')
+        return sOutput
 
 
 class readBackwards:
     def __init__(self, args1="racecar"):
         self.args1 = args1
-
-
 
     def readStringBackwards(self, backWord):
         '''backWord is now reversed'''
@@ -49,20 +67,15 @@ class readBackwards:
         return sOutput
 
 
-
 if __name__ == "__main__":
     # execute only if run as a script
     print("[+] Running wordSwitch")
 
-
-#adding
-object=readBackwards()# initialize with regular arguments racecar
+# adding
+object = readBackwards()  # initialize with regular arguments racecar
 
 print(object.runRead())
 object = getWolf()
-resp = object.getWebsiteRequest()
-print(resp)
 
-# Press the green button in the gutter to run the script.
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+object=typingGame()
+print(object.sanitize())
